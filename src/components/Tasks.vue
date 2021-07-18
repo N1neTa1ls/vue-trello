@@ -14,15 +14,18 @@
         <div>Добавить</div>
       </div>
     </div>
+    <!-- <div v-for="(task, index) in this.$store.state.tasks" :key="index"></div> -->
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   data() {
     return {
+      // tasks:[]
       data: [
         {
           heading: 'ON-HOLD',
@@ -67,9 +70,22 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters([
+      'TASKS'
+    ]),
+  },
   components: {
             draggable,
         },
+  methods: {
+    ...mapActions([
+      'GET_TASKS_FROM_API'
+    ]),
+  },
+  mounted() {
+    this.GET_TASKS_FROM_API()
+  }
 }
 </script>
 
